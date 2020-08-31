@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    /*
     private Rigidbody body;
     private Rigidbody target;
     private Vector3 targetOffset;
@@ -41,4 +42,5 @@ public class Ball : MonoBehaviour
                 ReleaseBall();
         }
     }
+    */
 }
