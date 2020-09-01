@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour
     public float friction = 10;
 
     private Vector3 dir;
-    private string horizontalAxis, verticalAxis;
+    private string horizontalAxis, verticalAxis, dashButton;
+
+    public float dashCooldown = 1;
+    private float lastDashTime;
 
     private void Start()
     {
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
         horizontalAxis = "Horizontal" + playerID;
         verticalAxis = "Vertical" + playerID;
+        dashButton = "Dash" + playerID;
     }
 
     private void Update()
@@ -33,6 +37,13 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRot = Quaternion.Euler(0, Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg, 0);
             body.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 1000 * Time.deltaTime);
         }
+
+        if (Input.GetButtonDown(dashButton) && body.velocity.sqrMagnitude > 1 && lastDashTime + dashCooldown < Time.time)
+        {
+            body.AddForce(body.velocity.normalized * speed * 15, ForceMode.Acceleration);
+            lastDashTime = Time.time;
+        }
+            
         
     }
     private void FixedUpdate()
@@ -44,6 +55,11 @@ public class PlayerController : MonoBehaviour
         if (dir.sqrMagnitude > 1)
             dir.Normalize();
         body.AddForce(dir * speed, ForceMode.Acceleration);
-        body.AddForce(GameManager.FlattenVector(-body.velocity * friction), ForceMode.Acceleration);
+        body.AddForce(GameManager.FlattenVector(-body.velocity * GetFriction()), ForceMode.Acceleration);
+    }
+
+    private float GetFriction()
+    {
+        return (lastDashTime < Time.time + 0.5f) ? friction : friction * 0.4f;
     }
 }
