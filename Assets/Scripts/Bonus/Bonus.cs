@@ -11,19 +11,18 @@ public abstract class Bonus : MonoBehaviour
      * appelée, puis l'objet est détruit.
      */
 
-    [SerializeField] private float duration = 5f;
-    private float timer;
-    private bool taken;
+    [SerializeField] protected float duration = 5f;
+    protected float timer;
+    protected bool taken;
 
-    private void Start()
+    protected void Start()
     {
         timer = duration;
         taken = false;
     }
 
-    private void Update()
+    protected void Update()
     {
-        System.Console.WriteLine(taken);
         if (taken)
         {
             if (timer<=0)
