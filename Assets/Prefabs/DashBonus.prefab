@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2457616431400977745}
   - component: {fileID: 2457616431400977746}
   - component: {fileID: 2457616431400977747}
-  - component: {fileID: 5167346500304422754}
+  - component: {fileID: 148446505467377340}
   m_Layer: 0
-  m_Name: SpeedBonus
+  m_Name: DashBonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5167346500304422754
+--- !u!114 &148446505467377340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2457616431400977756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a857c117933f8c488eaf9e21c91f310, type: 3}
+  m_Script: {fileID: 11500000, guid: 431c21ccfeff6fc4caa26b7c5a030869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 5

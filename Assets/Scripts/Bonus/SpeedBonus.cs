@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class SpeedBonus : Bonus
 {
+    /* Bonus de vitesse donné au joueur.
+     * La vitesse est multipliée par 'speedfactor'
+     */
+
     [SerializeField] private float speedFactor = 2.0f;
     private PlayerController controll;
-    private float resetValue;
 
     public override void OnPick(Collider collider)
     {
         controll = collider.gameObject.GetComponent<PlayerController>();
-        resetValue = controll.speed;
         controll.speed *= speedFactor;
     }
 
     public override void End()
     {
-        controll.speed = resetValue;
+        controll.speed /= speedFactor;
     }
 
 }

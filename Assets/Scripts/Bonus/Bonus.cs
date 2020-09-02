@@ -4,6 +4,13 @@ using UnityEngine;
 
 public abstract class Bonus : MonoBehaviour
 {
+    /* Cette classe abstraite représente un bonus.
+     * Lorsque le bonus est touché par un joueur, il n'apparait plus dans le jeu,
+     * et la fonction 'OnPick' est appelée, et un timer est lancé.
+     * Après un nombre de secondes indiqué par la variable 'duration', la fonction 'End' est 
+     * appelée, puis l'objet est détruit.
+     */
+
     [SerializeField] private float duration = 5f;
     private float timer;
     private bool taken;
@@ -33,10 +40,13 @@ public abstract class Bonus : MonoBehaviour
 
     public void OnTriggerEnter(Collider collider)
     {
-        OnPick(collider);
-        taken = true;
-        this.gameObject.GetComponent<Renderer>().enabled = false;
-        this.gameObject.GetComponent<Collider>().enabled = false;
+        if (collider.CompareTag("Player"))
+        {
+            OnPick(collider);
+            taken = true;
+            this.gameObject.GetComponent<Renderer>().enabled = false;
+            this.gameObject.GetComponent<Collider>().enabled = false;
+        }
     }
 
     public abstract void OnPick(Collider collider);
