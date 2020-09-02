@@ -15,9 +15,14 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 1;
     private float lastDashTime;
 
+    private Vector3 startPos;
+    private float startAngle;
+
     private void Start()
     {
         body = GetComponent<Rigidbody>();
+        startPos = transform.position;
+        startAngle = transform.eulerAngles.y;
 
         horizontalAxis = "Horizontal" + playerID;
         verticalAxis = "Vertical" + playerID;
@@ -61,5 +66,11 @@ public class PlayerController : MonoBehaviour
     private float GetFriction()
     {
         return (lastDashTime < Time.time + 0.5f) ? friction : friction * 0.4f;
+    }
+
+    public void ResetPos()
+    {
+        transform.position = startPos;
+        transform.eulerAngles = Vector3.up * startAngle;
     }
 }
