@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpeedMalus : Bonus
 {
-    /* Bonus de vitesse donné au joueur.
+    /* Malus de vitesse donné au joueur.
      * La vitesse est divisée par 'speedfactor'
      */
 

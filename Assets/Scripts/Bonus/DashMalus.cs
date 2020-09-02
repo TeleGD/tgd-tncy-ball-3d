@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DashMalus : Bonus
 {
+    /* Malus de dash donné au joueur.
+     * Le cooldown est multiplié par 'dashCooldownFactor'.
+     */
+
     [SerializeField] private float dashCooldownFactor = 2.0f;
     private PlayerController controll;
 
