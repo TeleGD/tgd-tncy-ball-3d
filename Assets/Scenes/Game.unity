@@ -1655,6 +1655,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreDisplay: {fileID: 1065734938}
+  bonusPrefab: {fileID: 2457616431400977756, guid: 39f3e9192b39d0d41bd88ff4fc4f25d5,
+    type: 3}
+  bonusClasses:
+  - BallAttractor
+  - DashBonus
+  - DashMalus
+  - SpeedBonus
+  - SpeedMalus
+  bonusDelay: 3
 --- !u!4 &1104127191
 Transform:
   m_ObjectHideFlags: 0

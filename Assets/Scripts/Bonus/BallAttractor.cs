@@ -11,9 +11,13 @@ public class BallAttractor : Bonus
     private GameObject ball;
     private GameObject player;
 
-    private new void Update()
+    private void Awake()
     {
-        base.Update();
+        color = new Color(0.5f, 0, 0.8f);
+    }
+
+    private void Update()
+    {
         if (taken)
         {
             Vector3 director = player.transform.position - ball.transform.position;

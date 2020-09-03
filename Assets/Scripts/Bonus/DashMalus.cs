@@ -11,9 +11,14 @@ public class DashMalus : Bonus
     [SerializeField] private float dashCooldownFactor = 2.0f;
     private PlayerController controll;
 
+    private void Awake()
+    {
+        color = new Color(1, 0.5f, 0);
+    }
+
     public override void OnPick(Collider collider)
     {
-        controll = collider.gameObject.GetComponent<PlayerController>();
+        controll = collider.GetComponent<PlayerController>();
         controll.dashCooldown *= dashCooldownFactor;
     }
 

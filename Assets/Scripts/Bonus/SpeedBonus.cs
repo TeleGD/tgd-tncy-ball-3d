@@ -11,6 +11,11 @@ public class SpeedBonus : Bonus
     [SerializeField] private float speedFactor = 2.0f;
     private PlayerController controll;
 
+    private void Awake()
+    {
+        color = Color.cyan;
+    }
+
     public override void OnPick(Collider collider)
     {
         controll = collider.gameObject.GetComponent<PlayerController>();

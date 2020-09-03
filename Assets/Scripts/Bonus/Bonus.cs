@@ -12,29 +12,12 @@ public abstract class Bonus : MonoBehaviour
      */
 
     [SerializeField] protected float duration = 5f;
-    protected float timer;
-    protected bool taken;
+    protected bool taken = false;
+    protected Color color;
 
-    protected void Start()
+    private void Start()
     {
-        timer = duration;
-        taken = false;
-    }
-
-    protected void Update()
-    {
-        if (taken)
-        {
-            if (timer<=0)
-            {
-                End();
-                Object.Destroy(this.gameObject);
-            }
-            else
-            {
-                timer -= Time.deltaTime;
-            }
-        }
+        GetComponent<MeshRenderer>().material.color = color;
     }
 
     public void OnTriggerEnter(Collider collider)
@@ -43,9 +26,16 @@ public abstract class Bonus : MonoBehaviour
         {
             OnPick(collider);
             taken = true;
-            this.gameObject.GetComponent<Renderer>().enabled = false;
-            this.gameObject.GetComponent<Collider>().enabled = false;
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+            Invoke("DestroyBonus", duration);
         }
+    }
+
+    private void DestroyBonus()
+    {
+        End();
+        Destroy(gameObject);
     }
 
     public abstract void OnPick(Collider collider);
