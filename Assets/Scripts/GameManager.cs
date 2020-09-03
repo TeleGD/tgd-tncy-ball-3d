@@ -8,16 +8,14 @@ public class GameManager : MonoBehaviour
     int Oscore=0;
     int Bscore=0;
     private bool lockGoal = false;
-    private Vector3 cameraStartPos;
-    private Quaternion cameraStartRot;
+    private int lastTeamGoal = 1;
+    public TextMesh scoreDisplay;
 
     public static GameManager instance;
 
     void Start()
     {
         instance = this;
-        cameraStartPos = Camera.main.transform.position;
-        cameraStartRot = Camera.main.transform.rotation;
     }
 
     public static Vector3 FlattenVector(Vector3 vec)
@@ -30,18 +28,16 @@ public class GameManager : MonoBehaviour
         if (lockGoal)
             return;
         lockGoal = true;
+        lastTeamGoal = id;
 
         if(id == 1)
-            Bscore+=1;
+            Oscore++;
         else
-            Oscore+=1;
+            Bscore++;
 
-        Debug.Log(Oscore+"||"+Bscore);
+        scoreDisplay.text = Bscore + " - " + Oscore;
 
-        Camera.main.GetComponent<Animation>().enabled = true;
-        Camera.main.GetComponent<Animation>().Play();
-
-        StartCoroutine(Reset(2));
+        StartCoroutine(Reset(3));
     }
 
     IEnumerator Reset(int delay)
@@ -50,9 +46,16 @@ public class GameManager : MonoBehaviour
         Ball.instance.Reset();
         GameObject.Find("P1").GetComponent<PlayerController>().ResetPos();
         GameObject.Find("P2").GetComponent<PlayerController>().ResetPos();
-        Camera.main.GetComponent<Animation>().enabled = false;
-        Camera.main.transform.SetPositionAndRotation(cameraStartPos, cameraStartRot);
-        Camera.main.fieldOfView = 60;
-       lockGoal = false;
+        lockGoal = false;
+    }
+
+    public bool AreGoalsLocked()
+    {
+        return lockGoal;
+    }
+
+    public int GetLastTeamGoal()
+    {
+        return lastTeamGoal;
     }
 }
