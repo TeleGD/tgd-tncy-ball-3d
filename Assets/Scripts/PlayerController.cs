@@ -1,4 +1,4 @@
-﻿using System.Security;
+﻿
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 startPos;
     private float startAngle;
+
+    public ParticleSystem smokeParticles;
 
     private void Start()
     {
@@ -37,19 +39,37 @@ public class PlayerController : MonoBehaviour
         //animation du joueur
         //transform.GetChild(0).localEulerAngles = new Vector3(-body.velocity.z, 0, body.velocity.x) * 4;
 
-        if(dir.sqrMagnitude > 0.1f)
+        float currentSpeed = dir.sqrMagnitude;
+        if(currentSpeed > 0.1f)
         {
             Quaternion targetRot = Quaternion.Euler(0, Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg, 0);
             body.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 1000 * Time.deltaTime);
+
+            if (Input.GetButtonDown(dashButton) && body.velocity.sqrMagnitude > 1 && lastDashTime + dashCooldown < Time.time)
+            {
+                body.AddForce(body.velocity.normalized * speed * 15, ForceMode.Acceleration);
+                lastDashTime = Time.time;
+            }
+
+            if(lastDashTime + 0.5f > Time.time )
+            {
+                transform.GetChild(0).localEulerAngles = Vector3.right * -30;
+            }
+            else
+            {
+                transform.GetChild(0).localPosition = Vector3.up * Mathf.Abs(Mathf.Sin(Time.time * 10) * 0.15f);
+                transform.GetChild(0).localEulerAngles = Vector3.forward * (Mathf.Cos(Time.time * 10) * 5);
+            }
+        }
+        else
+        {
+            transform.GetChild(0).localPosition = Vector3.zero;
+            transform.GetChild(0).localEulerAngles = Vector3.zero;
         }
 
-        if (Input.GetButtonDown(dashButton) && body.velocity.sqrMagnitude > 1 && lastDashTime + dashCooldown < Time.time)
-        {
-            body.AddForce(body.velocity.normalized * speed * 15, ForceMode.Acceleration);
-            lastDashTime = Time.time;
-        }
-            
-        
+        ParticleSystem.EmissionModule emission = smokeParticles.emission;
+        float smokeAmount = currentSpeed > 0.1f ? 15f : 0;
+        emission.rateOverTime = smokeAmount;
     }
     private void FixedUpdate()
     {
