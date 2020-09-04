@@ -335,7 +335,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565165840}
-  m_Text: 
+  m_Text: Appuyez sur Espace
   m_OffsetZ: 0
   m_CharacterSize: 20
   m_LineSpacing: 1
@@ -725,7 +725,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79c6a03ef8e21e748ac5e0492877f82f, type: 2}
+  - {fileID: 2100000, guid: f0cdb733275a9ff4fa81ed559cd10dd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
