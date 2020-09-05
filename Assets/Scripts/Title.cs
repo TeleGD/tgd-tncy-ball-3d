@@ -26,10 +26,14 @@ public class Title : MonoBehaviour
             GetComponent<TextMesh>().text = "";
             timer = 0;
         }
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
         {
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
             SceneManager.sceneLoaded += SceneSwitcher.loadScene;
+        }
+        if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit();
         }
     }
 }
