@@ -16,15 +16,10 @@ public class SceneSwitcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            SceneManager.LoadScene("Game", LoadSceneMode.Single);
-            Debug.Log(SceneManager.sceneCount);
-            SceneManager.sceneLoaded += this.loadGame;
-        }
+       
     }
 
-    void loadGame(Scene scene, LoadSceneMode mode)
+    public static void loadScene(Scene scene, LoadSceneMode mode)
     {
         scene = SceneManager.GetActiveScene();
     }

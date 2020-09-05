@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,6 +25,11 @@ public class Title : MonoBehaviour
         {
             GetComponent<TextMesh>().text = "";
             timer = 0;
+        }
+        if (Input.GetKeyDown("space"))
+        {
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+            SceneManager.sceneLoaded += SceneSwitcher.loadScene;
         }
     }
 }
