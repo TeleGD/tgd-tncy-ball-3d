@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
 
     public GameObject selectedObject;
-    public bool noneSelected = true;
+    public bool noneSelected;
     public Material mat1, mat2;
     public int index = 0;
     public int nbOptions;
@@ -20,75 +20,91 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        selectedObject = new GameObject();
-        mat1 = Resources.Load<Material>("Unselected");
-        mat2 = Resources.Load<Material>("Selected");
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            selectedObject = new GameObject();
+            noneSelected = true;
+            mat1 = Resources.Load<Material>("Unselected");
+            mat2 = Resources.Load<Material>("Selected");
+        }
+            
     }
 
     // Update is called once per frame
     void Update()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            coll = hit.collider.name;
-            if (selectedObject.name != coll && noneSelected == false)
+            // Check mouse controls
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
             {
-                if ((Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) && coll == "Plane" && Input.GetMouseButtonDown(0)
-                    || !(Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) && !(Input.GetMouseButton(0)) && coll == "Plane")
+                coll = hit.collider.name;
+                if (selectedObject.name != coll && noneSelected == false)
                 {
-                    selectedObject.GetComponent<MeshRenderer>().material = mat1;
-                    noneSelected = true;
+                    if ((Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) && coll == "Plane" && Input.GetMouseButtonDown(0)
+                        || !(Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) && !(Input.GetMouseButton(0)) && coll == "Plane")
+                    {
+                        selectedObject.GetComponent<MeshRenderer>().material = mat1;
+                        noneSelected = true;
+                    }
+                    else if ((Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) && !(Input.GetMouseButton(0)) && coll != "Plane")
+                    {
+                        GameObject.Find(coll).GetComponent<MeshRenderer>().material = mat1;
+                    }
+                    else if ((((Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) && !(Input.GetMouseButton(0))) || Input.GetMouseButtonDown(0)) && coll != "Plane")
+                    {
+                        selectedObject.GetComponent<MeshRenderer>().material = mat1;
+                        index = coll[1] - 48 - 1;
+                        select(coll);
+
+                    }
                 }
-                else if ((Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) && !(Input.GetMouseButton(0)) && selectedObject.name != coll && coll != "Plane")
+                else if (coll != "Plane" && noneSelected == true && !(Input.GetMouseButton(0)))
                 {
-                    GameObject.Find(coll).GetComponent<MeshRenderer>().material = mat1;
-                }
-                else if ((((Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) && !(Input.GetMouseButton(0))) || Input.GetMouseButtonDown(0)) && selectedObject.name != coll && coll != "Plane")
-                {
-                    selectedObject.GetComponent<MeshRenderer>().material = mat1;
                     index = coll[1] - 48 - 1;
                     select(coll);
-
                 }
             }
-            else if ((coll != "Plane" && noneSelected == true && !(Input.GetMouseButton(0)))
-                || (selectedObject.name != coll && noneSelected == false))
+
+            // Check mouse and keyboard controls
+            if ((Input.GetKeyDown("up") || Input.GetKeyDown("down") || Input.GetKeyDown("z") || Input.GetKeyDown("s")) && noneSelected == true)
             {
-                index = coll[1] - 48 - 1;
-                select(coll);
+                select(string.Concat("C", index + 1));
+            } 
+            else if (Input.GetKeyDown("up") || Input.GetKeyDown("z"))
+            {
+                selectedObject.GetComponent<MeshRenderer>().material = mat1;
+                index = index - 1;
+                if (index < 0) index = index + nbOptions;
+                select(string.Concat("C", index + 1));
+            }
+            else if (Input.GetKeyDown("down") || Input.GetKeyDown("s"))
+            {
+                selectedObject.GetComponent<MeshRenderer>().material = mat1;
+                index = index + 1;
+                if (index >= nbOptions) index = index - nbOptions;
+                select(string.Concat("C", index + 1));
+            }
+            else if ((Input.GetKeyDown("space") || Input.GetKeyDown("return") || (Input.GetMouseButtonUp(0) && coll == GameObject.Find("C1").name))
+                && selectedObject == GameObject.Find("C1"))
+            {
+                SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                SceneManager.sceneLoaded += SceneSwitcher.loadScene;
+            }
+            else if ((Input.GetKeyDown("space") || Input.GetKeyDown("return") || (Input.GetMouseButtonUp(0) && coll == GameObject.Find("C2").name))
+                && selectedObject == GameObject.Find("C2"))
+            {
+                SceneManager.LoadScene("TeamSelector", LoadSceneMode.Single);
+                SceneManager.sceneLoaded += SceneSwitcher.loadScene;
+            }
+            else if ((Input.GetKeyDown("space") || Input.GetKeyDown("return") || (Input.GetMouseButtonUp(0) && coll == GameObject.Find(string.Concat("C", nbOptions)).name))
+                && selectedObject == GameObject.Find(string.Concat("C", nbOptions)))
+            {
+                Application.Quit();
             }
         }
-
-        if ((Input.GetKeyDown("up") || Input.GetKeyDown("down") || Input.GetKeyDown("z") || Input.GetKeyDown("s")) && noneSelected == true)
-        {
-            select(string.Concat("C", index + 1));
-        } 
-        else if (Input.GetKeyDown("up") || Input.GetKeyDown("z"))
-        {
-            selectedObject.GetComponent<MeshRenderer>().material = mat1;
-            index = index - 1;
-            if (index < 0) index = index + nbOptions;
-            select(string.Concat("C", index + 1));
-        }
-        else if (Input.GetKeyDown("down") || Input.GetKeyDown("s"))
-        {
-            selectedObject.GetComponent<MeshRenderer>().material = mat1;
-            index = index + 1;
-            if (index >= nbOptions) index = index - nbOptions;
-            select(string.Concat("C", index + 1));
-        }
-        else if ((Input.GetKeyDown("space") || Input.GetKeyDown("return") || (Input.GetMouseButtonUp(0) && coll == GameObject.Find("C1").name))
-            && selectedObject == GameObject.Find("C1"))
-        {
-            SceneManager.LoadScene("Game", LoadSceneMode.Single);
-            SceneManager.sceneLoaded += SceneSwitcher.loadScene;
-        }
-        else if ((Input.GetKeyDown("space") || Input.GetKeyDown("return") || (Input.GetMouseButtonUp(0) && coll == GameObject.Find(string.Concat("C", nbOptions)).name))
-            && selectedObject == GameObject.Find(string.Concat("C", nbOptions)))
-        {
-            Application.Quit();
-        }
+        
     }
 
     void select(string name)
