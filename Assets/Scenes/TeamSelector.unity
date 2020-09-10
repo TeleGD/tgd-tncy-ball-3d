@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 1821122}
   - component: {fileID: 1821121}
   m_Layer: 0
-  m_Name: Logo_Team
+  m_Name: Team_Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +276,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c2848c71e7ba0b4c8ec677bdf7d1821, type: 2}
+  - {fileID: 2100000, guid: f153a1e78b3c55246a84a548ba989591, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 424952950}
   - component: {fileID: 424952949}
   m_Layer: 0
-  m_Name: Name_Team
+  m_Name: Team_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -717,6 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mat1: {fileID: 0}
   mat2: {fileID: 0}
+  i: 27
   q: left
   d: right
 --- !u!1 &879911826
@@ -1156,6 +1157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mat1: {fileID: 0}
   mat2: {fileID: 0}
+  i: 15
   q: q
   d: d
 --- !u!1 &1193950690
@@ -1171,7 +1173,7 @@ GameObject:
   - component: {fileID: 1193950693}
   - component: {fileID: 1193950692}
   m_Layer: 0
-  m_Name: Logo_Team
+  m_Name: Team_Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1222,7 +1224,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f0cdb733275a9ff4fa81ed559cd10dd0, type: 2}
+  - {fileID: 2100000, guid: 3d738d8e633e0de4e8c75c43eee6ba15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1450,7 +1452,7 @@ GameObject:
   - component: {fileID: 1884334907}
   - component: {fileID: 1884334906}
   m_Layer: 0
-  m_Name: Name_Team
+  m_Name: Team_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

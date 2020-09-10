@@ -90,6 +90,7 @@ public class MainMenu : MonoBehaviour
                 && selectedObject == GameObject.Find("C1"))
             {
                 SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                PlayerController.quick = true;
                 SceneManager.sceneLoaded += SceneSwitcher.loadScene;
             }
             else if ((Input.GetKeyDown("space") || Input.GetKeyDown("return") || (Input.GetMouseButtonUp(0) && coll == GameObject.Find("C2").name))

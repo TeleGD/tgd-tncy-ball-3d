@@ -89,6 +89,7 @@ public class TeamSelector : MonoBehaviour
             if (Input.GetKeyDown("space") || Input.GetKeyDown("return") || (Input.GetMouseButtonUp(0) && coll == GameObject.Find("Forward").name && selectedObject == GameObject.Find("Forward")))
             {
                 SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                PlayerController.quick = false;
                 SceneManager.sceneLoaded += SceneSwitcher.loadScene;
             }
             else if (Input.GetKeyDown("escape") || Input.GetKeyDown("return") || (Input.GetMouseButtonUp(0) && coll == GameObject.Find("Backward").name && selectedObject == GameObject.Find("Backward")))
