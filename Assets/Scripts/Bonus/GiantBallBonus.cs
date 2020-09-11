@@ -8,16 +8,14 @@ public class GiantBallBonus : Bonus
      * La vitesse est divisée par 'speedfactor'
      */
 
-    private void Awake()
-    {
-        color = new Color(1f, 1f, 0);
-    }
-
-    private float scaleFactor = 2.0f;
+    public float scaleFactor = 2.0f;
 
     public override void OnPick(Collider collider)
     {
 		Ball.instance.transform.localScale = Ball.instance.transform.localScale * scaleFactor;
+        Vector3 pos = Ball.instance.transform.position;
+        pos.y = Mathf.Max(pos.y, Ball.instance.transform.localScale.y / 2f);
+        Ball.instance.transform.position = pos;
     }
 
     public override void End()

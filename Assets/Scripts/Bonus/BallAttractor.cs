@@ -10,13 +10,9 @@ public class BallAttractor : Bonus
     [SerializeField] private float force = 40f;
     private GameObject ball;
     private GameObject player;
+    
 
-    private void Awake()
-    {
-        color = new Color(0.5f, 0, 0.8f);
-    }
-
-    private void Update()
+    private void FixedUpdate()
     {
         if (taken)
         {

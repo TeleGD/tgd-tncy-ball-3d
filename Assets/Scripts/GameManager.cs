@@ -13,9 +13,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    public GameObject bonusPrefab;
-    public string[] bonusClasses;
-    public float bonusDelay = 3;
+    public GameObject[] bonusPrefab;
+    public float bonusDelay = 5;
 
     void Start()
     {
@@ -35,9 +34,7 @@ public class GameManager : MonoBehaviour
     private void SpawnBonus()
     {
         Vector3 pos = new Vector3(Random.Range(-100, 100) / 10f, 0.5f, Random.Range(-80, 80) / 10f);
-        GameObject go = Instantiate(bonusPrefab, pos, Quaternion.identity);
-        System.Type bonusType = System.Type.GetType(bonusClasses[Random.Range(0, bonusClasses.Length)]);
-        go.AddComponent(bonusType);
+        GameObject go = Instantiate(bonusPrefab[Random.Range(0, bonusPrefab.Length)], pos, Quaternion.identity);
     }
 
     public static Vector3 FlattenVector(Vector3 vec)

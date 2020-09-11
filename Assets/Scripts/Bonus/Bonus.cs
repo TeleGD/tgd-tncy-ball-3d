@@ -13,20 +13,25 @@ public abstract class Bonus : MonoBehaviour
 
     [SerializeField] protected float duration = 5f;
     protected bool taken = false;
-    protected Color color;
 
     private void Start()
     {
-        GetComponent<MeshRenderer>().material.color = color;
+        
+    }
+
+    private void Update()
+    {
+        if(!taken)
+            transform.Rotate(Vector3.up * (Time.deltaTime * 200));
     }
 
     public void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag("Player") && !taken)
         {
             OnPick(collider);
             taken = true;
-            GetComponent<Renderer>().enabled = false;
+            Destroy(transform.GetChild(0).gameObject);
             GetComponent<Collider>().enabled = false;
             Invoke("DestroyBonus", duration);
         }
