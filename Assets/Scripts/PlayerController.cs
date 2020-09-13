@@ -12,8 +12,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 dir;
     private string horizontalAxis, verticalAxis, dashButton;
 
+    public string state = "normal";
+
     public float dashCooldown = 1;
+    public float dashDuration = 0.5f;
     private float lastDashTime;
+    private bool wasDashing = false;
 
     private Vector3 startPos;
     private float startAngle;
@@ -75,49 +79,70 @@ public class PlayerController : MonoBehaviour
         //animation du joueur
         //transform.GetChild(0).localEulerAngles = new Vector3(-body.velocity.z, 0, body.velocity.x) * 4;
 
-        float currentSpeed = dir.sqrMagnitude;
-        if(currentSpeed > 0.1f)
+        if (state!="stunned")
         {
-            Quaternion targetRot = Quaternion.Euler(0, Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg, 0);
-            body.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 1000 * Time.deltaTime);
-
-            if (Input.GetButtonDown(dashButton) && body.velocity.sqrMagnitude > 1 && lastDashTime + dashCooldown < Time.time)
+            float currentSpeed = dir.sqrMagnitude;
+            if (currentSpeed > 0.1f)
             {
-                body.AddForce(body.velocity.normalized * speed * 15, ForceMode.Acceleration);
-                lastDashTime = Time.time;
-            }
+                Quaternion targetRot = Quaternion.Euler(0, Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg, 0);
+                body.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 1000 * Time.deltaTime);
 
-            if(lastDashTime + 0.5f > Time.time )
-            {
-                transform.GetChild(0).localEulerAngles = Vector3.right * -30;
+                if (Input.GetButtonDown(dashButton) && body.velocity.sqrMagnitude > 1 && lastDashTime + dashCooldown < Time.time)
+                {
+                    body.AddForce(body.velocity.normalized * speed * 15, ForceMode.Acceleration);
+                    lastDashTime = Time.time;
+                }
+
+                if (IsDashing())
+                {
+                    transform.GetChild(0).localEulerAngles = Vector3.right * -30;
+                }
+                else
+                {
+                    if (wasDashing)
+                    {
+                        state = "normal";
+                    }
+                    transform.GetChild(0).localPosition = Vector3.up * Mathf.Abs(Mathf.Sin(Time.time * 10) * 0.15f);
+                    transform.GetChild(0).localEulerAngles = Vector3.forward * (Mathf.Cos(Time.time * 10) * 5);
+                }
             }
             else
             {
-                transform.GetChild(0).localPosition = Vector3.up * Mathf.Abs(Mathf.Sin(Time.time * 10) * 0.15f);
-                transform.GetChild(0).localEulerAngles = Vector3.forward * (Mathf.Cos(Time.time * 10) * 5);
+                transform.GetChild(0).localPosition = Vector3.zero;
+                transform.GetChild(0).localEulerAngles = Vector3.zero;
             }
-        }
-        else
-        {
-            transform.GetChild(0).localPosition = Vector3.zero;
-            transform.GetChild(0).localEulerAngles = Vector3.zero;
-        }
 
-        ParticleSystem.EmissionModule emission = smokeParticles.emission;
-        float smokeAmount = currentSpeed > 0.1f ? 15f : 0;
-        emission.rateOverTime = smokeAmount;
+            ParticleSystem.EmissionModule emission = smokeParticles.emission;
+            float smokeAmount = currentSpeed > 0.1f ? 15f : 0;
+            emission.rateOverTime = smokeAmount;
+        }
+        wasDashing = IsDashing();
     }
     private void FixedUpdate()
     {
         //if (!GameManager.gameStarted)
         //    return;
-
-        dir = new Vector3(Input.GetAxis(horizontalAxis), 0, Input.GetAxis(verticalAxis));
-        if (dir.sqrMagnitude > 1)
-            dir.Normalize();
-        body.AddForce(dir * speed, ForceMode.Acceleration);
-        body.AddForce(GameManager.FlattenVector(-body.velocity * GetFriction()), ForceMode.Acceleration);
+        if (state!="stunned")
+        {
+            dir = new Vector3(Input.GetAxis(horizontalAxis), 0, Input.GetAxis(verticalAxis));
+            if (dir.sqrMagnitude > 1)
+                dir.Normalize();
+            body.AddForce(dir * speed, ForceMode.Acceleration);
+            body.AddForce(GameManager.FlattenVector(-body.velocity * GetFriction()), ForceMode.Acceleration);
+        }
     }
+
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (state=="charged" && IsDashing() && collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerController>().Stun(2f);
+            state = "normal";
+        }
+    }
+
 
     private float GetFriction()
     {
@@ -128,5 +153,21 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = startPos;
         transform.eulerAngles = Vector3.up * startAngle;
+    }
+
+    public bool IsDashing()
+    {
+        return lastDashTime + dashDuration > Time.time;
+    }
+
+    public void Stun(float time)
+    {
+        state = "stunned";
+        Invoke("Unstun", time);
+    }
+
+    public void Unstun()
+    {
+        state = "normal";
     }
 }

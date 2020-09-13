@@ -19,7 +19,7 @@ public abstract class Bonus : MonoBehaviour
         
     }
 
-    private void Update()
+    protected void Update()
     {
         if(!taken)
             transform.Rotate(Vector3.up * (Time.deltaTime * 200));
@@ -37,7 +37,7 @@ public abstract class Bonus : MonoBehaviour
         }
     }
 
-    private void DestroyBonus()
+    protected void DestroyBonus()
     {
         End();
         Destroy(gameObject);
