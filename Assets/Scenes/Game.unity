@@ -1167,7 +1167,7 @@ MonoBehaviour:
   - {fileID: 2457616431400977756, guid: e79668109e91d884ea27e21c56e046b4, type: 3}
   - {fileID: 2457616431400977756, guid: 308af412ce3a1174b8efd7558c022719, type: 3}
   - {fileID: 2457616431400977756, guid: 203def780d75a7f4ea2efb18f1e15f15, type: 3}
-  bonusDelay: 6
+  bonusDelay: 0
   bonusRandomFactor: 0.3
   playerLogos:
   - {fileID: 305889792}
