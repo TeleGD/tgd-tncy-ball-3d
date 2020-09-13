@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Cette classe gère le modèle de la gestion de clubs.
+ * C'est le component TeamWheel qui gère la vue.
+ */
+
 public class TeamSelector
 {
     public static int[] selectedTeam;
@@ -59,16 +64,18 @@ public class TeamSelector
             new Team("Jeux", "jeux"),
             new Team("Langues", "langues"),
             new Team("MadPad", "madpad"),
+            new Team("Le marché de Telecom", "marche"),
             new Team("Mini Tel'", "minitel"),
             new Team("Œnologie", "oenologie"),
             new Team("Solidarité", "solidarite"),
             new Team("Studio", "studio"),
             new Team("Tek'TN", "tektn"),
+            new Team("Télécube.", "telecube"),
             new Team("Telecom Air Force", "telecomeairforce"),
             new Team("Telecome Cooking", "cooking"),
             new Team("TeleGame Design", "tgd"),
             new Team("TN 24", "24"),
-            new Team("TELECOM Nancy\nServices", "tns"),
+            new Team("Telecom Nancy Services", "tns"),
             new Team("Voyage", "voyage"),
             new Team("Aléatoire", "random")
         });

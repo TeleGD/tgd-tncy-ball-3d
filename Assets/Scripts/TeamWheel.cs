@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/**
+ * Cette classe gère la vue de la gestion de clubs dans le menu.
+ * C'est la classe TeamSelector qui gère le modèle.
+ */
+
 public class TeamWheel : MonoBehaviour
 {
     public RawImage[] teamLogosUI;
