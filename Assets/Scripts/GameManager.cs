@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public GameObject[] bonusPrefab;
-    public float bonusDelay = 5;
+    public float bonusDelay = 10;
+    public float bonusRandomFactor = 0.3f;
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(bonusDelay);
+            yield return new WaitForSeconds(Random.Range(bonusDelay*(1-bonusRandomFactor), bonusDelay*(1+bonusRandomFactor)));
             SpawnBonus();
         }
     }
