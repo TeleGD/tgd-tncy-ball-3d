@@ -28,40 +28,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        System.Random r = new System.Random();
-        int i1 = r.Next(TeamWheel.teams.Count - 1);
-        int i2 = r.Next(TeamWheel.teams.Count - 1);
-        if (playerID == 1)
-        {
-            if (quick)
-            {
-                this.gameObject.transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material = Resources.Load<Material>("Logos/Logo1");
-            }
-            else
-            {
-                this.gameObject.transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material = TeamWheel.logo1;
-            }
-            if (this.gameObject.transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material.mainTexture == Resources.Load<Texture>("Logos/random"))
-            {
-                this.gameObject.transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", Resources.Load<Texture>(string.Concat("Logos/", TeamWheel.teams[i1].getFileId())));
-            }
-        }
-        if (playerID == 2)
-        {
-            if (quick)
-            {
-                this.gameObject.transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material = Resources.Load<Material>("Logos/Logo2");
-            }
-            else
-            {
-                this.gameObject.transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material = TeamWheel.logo2;
-            }
-            if (this.gameObject.transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material.mainTexture == Resources.Load<Texture>("Logos/random"))
-            {
-                this.gameObject.transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material.SetTexture("_MainTex", Resources.Load<Texture>(string.Concat("Logos/", TeamWheel.teams[i2].getFileId())));
-            }
-        }
-
         body = GetComponent<Rigidbody>();
         startPos = transform.position;
         startAngle = transform.eulerAngles.y;
@@ -69,6 +35,8 @@ public class PlayerController : MonoBehaviour
         horizontalAxis = "Horizontal" + playerID;
         verticalAxis = "Vertical" + playerID;
         dashButton = "Dash" + playerID;
+
+        transform.GetChild(0).Find("Logo").GetComponent<MeshRenderer>().material.mainTexture = TeamSelector.GetSelection(playerID - 1).GetLogo();
     }
 
     private void Update()
