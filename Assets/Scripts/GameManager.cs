@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     int Oscore=0;
     int Bscore=0;
     private bool lockGoal = false;
+    private bool gameEnd = false;
     private int lastTeamGoal = 1;
     public TextMesh scoreDisplay;
 
@@ -17,15 +18,22 @@ public class GameManager : MonoBehaviour
     public float bonusDelay = 10;
     public float bonusRandomFactor = 0.3f;
 
+    public MeshRenderer[] playerLogos;
+
+    private const int goalsToWin = 6;
+
     void Start()
     {
         instance = this;
         StartCoroutine(SpawnBonusLoop());
+
+        playerLogos[0].material.mainTexture = TeamSelector.GetSelection(0).GetLogo();
+        playerLogos[1].material.mainTexture = TeamSelector.GetSelection(1).GetLogo();
     }
 
     IEnumerator SpawnBonusLoop()
     {
-        while(true)
+        while(!gameEnd)
         {
             yield return new WaitForSeconds(Random.Range(bonusDelay*(1-bonusRandomFactor), bonusDelay*(1+bonusRandomFactor)));
             SpawnBonus();
@@ -38,6 +46,12 @@ public class GameManager : MonoBehaviour
         GameObject go = Instantiate(bonusPrefab[Random.Range(0, bonusPrefab.Length)], pos, Quaternion.identity);
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.T))
+            SceneManager.LoadScene("Menu");
+    }
+
     public static Vector3 FlattenVector(Vector3 vec)
     {
         return new Vector3(vec.x, 0, vec.z);
@@ -45,8 +59,9 @@ public class GameManager : MonoBehaviour
 
     public void EndRound(int id)
     {
-        if (lockGoal)
+        if (lockGoal || gameEnd)
             return;
+
         lockGoal = true;
         lastTeamGoal = id;
 
@@ -55,8 +70,17 @@ public class GameManager : MonoBehaviour
         else
             Bscore++;
 
-        scoreDisplay.text = Bscore + " - " + Oscore;
+        scoreDisplay.text = Bscore + "-" + Oscore;
 
+        if(Bscore >= goalsToWin || Oscore >= goalsToWin)
+        {
+            gameEnd = true;
+            int winningTeam = Bscore >= goalsToWin ? 0 : 1;
+            TextMesh winText = GameObject.Find("Win Text").GetComponent<TextMesh>();
+            winText.GetComponent<MeshRenderer>().enabled = true;
+            winText.text = "C'est\n" + TeamSelector.GetSelection(winningTeam).GetName() + "\nle plu for";
+        }
+        
         StartCoroutine(Reset(3));
     }
 
@@ -72,6 +96,11 @@ public class GameManager : MonoBehaviour
     public bool AreGoalsLocked()
     {
         return lockGoal;
+    }
+
+    public bool IsGameFinished()
+    {
+        return gameEnd;
     }
 
     public int GetLastTeamGoal()
