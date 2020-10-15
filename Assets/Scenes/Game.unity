@@ -1161,11 +1161,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreDisplay: {fileID: 1065734938}
   bonusPrefab:
+  - {fileID: 2457616431400977756, guid: ffb03f187a6747246a46f27761d82e1f, type: 3}
+  - {fileID: 2457616431400977756, guid: ad7e732a920cb3444b5cb00db328ed32, type: 3}
+  - {fileID: 2457616431400977756, guid: 308af412ce3a1174b8efd7558c022719, type: 3}
+  - {fileID: 2457616431400977756, guid: e79668109e91d884ea27e21c56e046b4, type: 3}
   - {fileID: 2457616431400977756, guid: 514f55fb02dd27e4fbc9e31d5e5316d5, type: 3}
   - {fileID: 2457616431400977756, guid: 5175cbf610379b249a7f4d0c56cf5726, type: 3}
-  - {fileID: 2457616431400977756, guid: ffb03f187a6747246a46f27761d82e1f, type: 3}
-  - {fileID: 2457616431400977756, guid: e79668109e91d884ea27e21c56e046b4, type: 3}
-  - {fileID: 2457616431400977756, guid: 308af412ce3a1174b8efd7558c022719, type: 3}
   - {fileID: 2457616431400977756, guid: 203def780d75a7f4ea2efb18f1e15f15, type: 3}
   bonusDelay: 6
   bonusRandomFactor: 0.3
@@ -1683,6 +1684,11 @@ PrefabInstance:
       propertyPath: mat
       value: 
       objectReference: {fileID: 2100000, guid: f153a1e78b3c55246a84a548ba989591, type: 2}
+    - target: {fileID: 74138088257481727, guid: 4c2f78e82a836184c8dc6fbdeeab4e1e,
+        type: 3}
+      propertyPath: speed
+      value: -20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c2f78e82a836184c8dc6fbdeeab4e1e, type: 3}
 --- !u!1 &1859141165
