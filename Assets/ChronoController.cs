@@ -1,0 +1,47 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class ChronoController : MonoBehaviour
+{
+
+    private bool paused;
+    private float chrono = 0f;
+
+    //le temps max d'un match
+    public float startValue = 5*60f;
+
+    //chrono qui décompte 5 minutes
+
+    void Start()
+    {
+        reset();
+    }
+
+    public void reset(){
+        chrono = startValue;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(! paused){
+            chrono -= Time.deltaTime;
+        }
+    }
+
+    public void pause(){
+        paused = !paused;
+    }
+
+    public string getChronoDisplay(){
+        int c = (int) chrono;
+        return (c/60).ToString() + ":" + (c%60).ToString(); //pire méthode mais je me suis lassé de lire la doc de String.format au bout d'une ligne
+
+    }
+
+    public float getChrono(){
+        return chrono;
+    }
+}
