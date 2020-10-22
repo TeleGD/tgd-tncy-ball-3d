@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5785725061129965753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5785725061129965755}
+  - component: {fileID: 5785725061129965754}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5785725061129965755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5785725061129965753}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5785725061129965754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5785725061129965753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a83a062bb76674b88af825ca1f5a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreDisplay: {fileID: 0}
+  bonusPrefab:
+  - {fileID: 2457616431400977756, guid: ffb03f187a6747246a46f27761d82e1f, type: 3}
+  - {fileID: 2457616431400977756, guid: ad7e732a920cb3444b5cb00db328ed32, type: 3}
+  - {fileID: 2457616431400977756, guid: 308af412ce3a1174b8efd7558c022719, type: 3}
+  - {fileID: 2457616431400977756, guid: e79668109e91d884ea27e21c56e046b4, type: 3}
+  - {fileID: 2457616431400977756, guid: 514f55fb02dd27e4fbc9e31d5e5316d5, type: 3}
+  - {fileID: 2457616431400977756, guid: 5175cbf610379b249a7f4d0c56cf5726, type: 3}
+  - {fileID: 2457616431400977756, guid: 203def780d75a7f4ea2efb18f1e15f15, type: 3}
+  - {fileID: 7322239195005888060, guid: bbcc0756dff32b34286c3535f70caff4, type: 3}
+  - {fileID: 9154489681328454095, guid: 1aba67c5294c75e4fa813fd390c6eb45, type: 3}
+  - {fileID: 7296458641164819893, guid: fa1c64bbdc5f6fd4a831163db3a74b10, type: 3}
+  bonusDelay: 6
+  bonusRandomFactor: 0.3
+  playerLogos:
+  - {fileID: 0}
+  - {fileID: 0}
