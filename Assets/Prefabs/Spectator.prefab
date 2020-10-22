@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3449596364575489755}
+  - component: {fileID: 1999059197665324145}
   m_Layer: 0
   m_Name: Spectator
   m_TagString: Untagged
@@ -31,6 +32,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1999059197665324145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688461534909723543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dc54241d43cdf049bad104f3f95f62e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {fileID: 2100000, guid: 9ad2635f9f2b5e14c89a78aab5e6309a, type: 2}
+  - {fileID: 2100000, guid: ca5f239da7d56d2449eec1c88adb2fe2, type: 2}
 --- !u!1 &5214262834070995263
 GameObject:
   m_ObjectHideFlags: 0

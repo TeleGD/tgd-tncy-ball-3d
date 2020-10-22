@@ -43,8 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ba215f6786b884aa0c0536580f7058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spectatorPrefab: {fileID: 1688461534909723543, guid: 32cd862de5f90d847bc61aa8167c028a,
-    type: 3}
+  spectatorPrefab:
+  - {fileID: 1688461534909723543, guid: 32cd862de5f90d847bc61aa8167c028a, type: 3}
+  - {fileID: 7143722240020016853, guid: ec30f456978618e4d9496fc171942e1f, type: 3}
 --- !u!1 &6213146920631962646
 GameObject:
   m_ObjectHideFlags: 0

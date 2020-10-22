@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spectators : MonoBehaviour
 {
-    public GameObject spectatorPrefab;
+    public GameObject[] spectatorPrefab;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class Spectators : MonoBehaviour
     {
         Vector3 pos = transform.position + transform.rotation
             * new Vector3(Random.Range(minX * 10, maxX * 10) / 10f, y, z);
-        Instantiate(spectatorPrefab, pos, transform.rotation, transform);
+        Instantiate(spectatorPrefab[Random.Range(0,2)], pos, transform.rotation, transform);
     }
     
     void Update()
