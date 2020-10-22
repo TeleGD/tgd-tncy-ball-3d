@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private int lastTeamGoal = 1;
     public TextMesh scoreDisplay;
 
+    public ChronoController chrono;
+
     public static GameManager instance;
 
     public GameObject[] bonusPrefab;
@@ -48,6 +50,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(Bscore != Oscore && chrono.getChrono() < 0){
+            endGame();
+        }
+
         if (Input.GetKey(KeyCode.P) && Input.GetKeyDown(KeyCode.T))
             SceneManager.LoadScene("Menu");
     }
@@ -59,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     public void EndRound(int id)
     {
+        chrono.pause();
+
         if (lockGoal || gameEnd)
             return;
 
@@ -72,21 +80,27 @@ public class GameManager : MonoBehaviour
 
         scoreDisplay.text = Bscore + "-" + Oscore;
 
-        if(Bscore >= goalsToWin || Oscore >= goalsToWin)
+        if( (Bscore >= goalsToWin || Oscore >= goalsToWin) || (Bscore != Oscore && chrono.getChrono() < 0 ))
         {
-            gameEnd = true;
-            int winningTeam = Bscore >= goalsToWin ? 0 : 1;
-            TextMesh winText = GameObject.Find("Win Text").GetComponent<TextMesh>();
-            winText.GetComponent<MeshRenderer>().enabled = true;
-            winText.text = "C'est\n" + TeamSelector.GetSelection(winningTeam).GetName() + "\nle plu for";
+            endGame();
         }
         
         StartCoroutine(Reset(3));
     }
 
+private void endGame(){
+    gameEnd = true;
+            int winningTeam = Bscore >= goalsToWin ? 0 : 1;
+            TextMesh winText = GameObject.Find("Win Text").GetComponent<TextMesh>();
+            winText.GetComponent<MeshRenderer>().enabled = true;
+            winText.text = "C'est\n" + TeamSelector.GetSelection(winningTeam).GetName() + "\nle plu for";
+}
+
     IEnumerator Reset(int delay)
     {
+        
         yield return new WaitForSeconds(delay);
+        chrono.resume();
         Ball.instance.Reset();
         GameObject.Find("P1").GetComponent<PlayerController>().ResetPos();
         GameObject.Find("P2").GetComponent<PlayerController>().ResetPos();

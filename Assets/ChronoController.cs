@@ -6,7 +6,7 @@ using System;
 public class ChronoController : MonoBehaviour
 {
 
-    private bool paused;
+    public bool paused;
     private float chrono = 0f;
 
     //le temps max d'un match
@@ -32,7 +32,10 @@ public class ChronoController : MonoBehaviour
     }
 
     public void pause(){
-        paused = !paused;
+        paused = true;
+    }
+    public void resume(){
+        paused = false;
     }
 
     public string getChronoDisplay(){
