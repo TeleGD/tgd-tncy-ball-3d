@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 1;
     public float dashDuration = 0.5f;
     private float lastDashTime;
-    private bool wasDashing = false;
+    public bool wasDashing = false;
 
     private Vector3 startPos;
     private float startAngle;
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
                 {
                     body.AddForce(body.velocity.normalized * speed * 15, ForceMode.Acceleration);
                     lastDashTime = Time.time;
+                    dashCooldown = 1;
                 }
 
                 if (IsDashing())
